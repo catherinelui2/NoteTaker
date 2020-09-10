@@ -1,6 +1,8 @@
 const path = require("path");
 const fs = require("fs");
+const { v4: uuidv4 } = require("uuid");
 
+let noteID = uuidv4();
 let noteData = [];
 
 module.exports = function (app) {
@@ -28,7 +30,7 @@ module.exports = function (app) {
             //parse the data to get an array of objects
             noteData = JSON.parse(noteData);
             //set id for each entry
-            req.body.id = noteData.length;
+            req.body.id = noteID;
             //push user input to the arrary
             noteData.push(req.body);
             //stringify before writting it to the JSON file
@@ -43,11 +45,6 @@ module.exports = function (app) {
             throw err;
             console.log(err);
         }
-        // var newNote = req.body;
-        // newNote.id = uuidv4();
-        // noteData.push(newNote);
-        // fs.writeFile(noteData);
-        // res.json(newNote);
     });
 
     // to allow user to delete a note by id
