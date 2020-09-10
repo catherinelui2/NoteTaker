@@ -1,8 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-const { v4: uuidv4 } = require("uuid");
 
-let noteID = uuidv4();
 let noteData = [];
 
 module.exports = function (app) {
@@ -30,7 +28,7 @@ module.exports = function (app) {
             //parse the data to get an array of objects
             noteData = JSON.parse(noteData);
             //set id for each entry
-            req.body.id = noteID;
+            req.body.id = noteData.length;
             //push user input to the arrary
             noteData.push(req.body);
             //stringify before writting it to the JSON file
